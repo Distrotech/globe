@@ -1,8 +1,10 @@
 # CONFIGURE: the directory where you want the executables installed.
-BINDIR =	/usr/local/bin
+BINDIR =	/usr/bin
 
 # CONFIGURE: the directory tree where you want the man pages installed.
-MANDIR =	/usr/local/man
+MANDIR =	/usr/share/man
+
+INSTALL =	ginstall
 
 # CONFIGURE: your favorite C compiler.
 CC =		gcc
@@ -19,10 +21,8 @@ globe:		globe.c
 	$(CC) $(CFLAGS) globe.c $(LDFLAGS) -o globe
 
 install:	all
-	rm -f $(BINDIR)/globe
-	cp globe $(BINDIR)
-	rm -f $(MANDIR)/man1/globe.1
-	cp globe.1 $(MANDIR)/man1
+	$(INSTALL) -D globe $(DESTDIR)$(BINDIR)/globe
+	$(INSTALL) -D globe.1 $(DESTDIR)$(MANDIR)/man1/globe.1
 
 clean:
 	rm -f globe a.out core
